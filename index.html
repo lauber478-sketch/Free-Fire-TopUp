@@ -6,7 +6,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-</head>
+</head> 
+  
+<!-- Payment Verification Status -->
+<div id="paymentStatus" style="display:none; text-align:center; padding:20px; background:#171925; color:white; border-radius:12px;">
+  <h3 style="color:#00c853;">Payment Submitted!</h3>
+  <p>Please wait 10 minutes for payment verification.</p>
+  <p id="paymentTimer" style="color:#ffd54f; font-weight:bold;">10:00</p>
+</div>
+
+<script>
+function submitPayment() {
+  const status = document.getElementById("paymentStatus");
+  const timer = document.getElementById("paymentTimer");
+
+  status.style.display = "block";
+
+  let seconds = 600;
+  timer.textContent = "10:00";
+
+  const countdown = setInterval(() => {
+    seconds--;
+
+    timer.textContent =
+      Math.floor(seconds / 60).toString().padStart(2, "0") +
+      ":" +
+      (seconds % 60).toString().padStart(2, "0");
+
+    if (seconds <= 0) {
+      clearInterval(countdown);
+      timer.textContent = "Verification Pending";
+    }
+  }, 1000);
+}
+</script>
+  
 <body>
 <header class="topbar"><a class="brand" href="#"><span class="brand-mark">N</span><span>NEPAL <span class="accent">TOPUP CENTER</span><small>FREE FIRE DIAMOND STORE</small></span></a><span class="secure"><i></i> eSewa QR payment</span></header>
 <main class="wrap">
